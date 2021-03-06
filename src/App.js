@@ -1,26 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useFetchJobs from './hooks/useFetchJobs'
-
+import Job from './components/Job.jsx'
 const App = () => {
-  const { jobs, loading, error } = useFetchJobs()
-  console.log(jobs)
+  const [params, setParams] = useState({})
+  const [page, setPage] = useState(0)
+  const { jobs, loading, error } = useFetchJobs(params, page)
+
   return (
-    <div className='container'>
+    <main className='container'>
       <h3>JOBS</h3>
       {loading && <h2>loading ...</h2>}
       {error && <h2>error</h2>}
       {jobs.length}
-      <ul className='list-group'>
+      <div className='list-group'>
         {jobs.map((job) => {
           const { id, title } = job
-          return (
-            <li key={id} className='list-group-item'>
-              {title}
-            </li>
-          )
+          return <Job key={id} className='list-group-item' title={title} />
         })}
-      </ul>
-    </div>
+      </div>
+    </main>
   )
 }
 
