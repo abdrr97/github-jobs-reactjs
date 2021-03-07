@@ -52,7 +52,8 @@ const useFetchJobs = (params, page) => {
       })
       .catch((error) => {
         if (axios.isCancel(error)) return
-        axios.dispatch({ type: ACTIONS.ERROR, payload: { error: error } })
+
+        dispatch({ type: ACTIONS.ERROR, payload: { error: error } })
       })
 
     return () => {
@@ -65,4 +66,4 @@ const useFetchJobs = (params, page) => {
   }
 }
 
-export default useFetchJobs
+export { useFetchJobs }
